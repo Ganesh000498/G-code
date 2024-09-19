@@ -1,0 +1,1626 @@
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+class board
+{
+    protected:
+        string z[8][8]={""};
+    public:
+        void display()
+        {
+            int c=1; 
+            cout<<"     A    B    C    D    E    F    G    H"<<endl;
+            for(int i=0;i<8;i++)
+            {
+                cout<<"  ______________"<<endl;
+                cout<<c;
+                for(int j=0;j<8;j++)
+                {
+                    cout<<" | "<<z[i][j];
+                }
+                cout<<" |"<<c<<endl;
+                c++;
+            }
+            cout<<"  _______________"<<endl;
+            cout<<"     A    B    C    D    E    F    G    H";
+        }
+};
+class White:public board
+{
+    public:
+        White()
+        {
+            z[0][0]=z[0][7]="R ";
+            z[0][1]=z[0][6]="N ";
+            z[0][2]=z[0][5]="B ";
+            z[0][3]="Q ";
+            z[0][4]="K ";
+            for(int i=0;i<8;i++)
+            {
+                for(int j=0;j<8;j++)
+                {
+                    if(i==1)
+                        z[i][j]="p ";
+                    
+                        
+                }
+            }
+        }
+};
+class Black:public White
+{
+    public:
+        Black()
+        {
+            z[7][0]=z[7][7]="R*";
+            z[7][1]=z[7][6]="N*";
+            z[7][2]=z[7][5]="B*";
+            z[7][3]="Q*";
+            z[7][4]="K*";
+            for(int i=2;i<8;i++)
+            {
+                for(int j=0;j<8;j++)
+                {
+                    if(i==6)
+                        z[i][j]="p*";
+                    else if(i!=6 && i!=7)
+                        z[i][j]="  ";
+                }
+            }
+        }
+        void WMove(string n,string m)
+        {
+            char l;
+            int x;
+            stringstream ss(n);
+            ss>>l>>x;
+            string pos;
+            int o;
+            switch(l)
+            {
+                case 'a':
+                case 'A':
+                    o=0;
+                    break;
+                case 'b':
+                case 'B':
+                    o=1;
+                    break;
+                case 'c':
+                case 'C':
+                    o=2;
+                    break;
+                case 'd':
+                case 'D':
+                    o=3;
+                    break;
+                case 'e':
+                case 'E':
+                    o=4;
+                    break;
+                case 'f':
+                case 'F':
+                    o=5;
+                    break;
+                case 'g':
+                case 'G':
+                    o=6;
+                    break;
+                case 'h':
+                case 'H':
+                    o=7;
+                    break;
+            }
+            switch(l)
+            {
+                case 'A':
+                case 'a':
+                    pos=z[x-1][o];
+                    break;
+                case 'B':
+                case 'b':
+                    pos=z[x-1][o];
+                    break;
+                case 'C':
+                case 'c':
+                    pos=z[x-1][o];
+                    break;
+                case 'D':
+                case 'd':
+                    pos=z[x-1][o];
+                    break;
+                case 'E':
+                case 'e':
+                    pos=z[x-1][o];
+                    break;
+                case 'F':
+                case 'f':
+                    pos=z[x-1][o];
+                    break;
+                case 'G':
+                case 'g':
+                    pos=z[x-1][o];
+                    break;
+                case 'H':
+                case 'h':
+                    pos=z[x-1][o];
+                    break;
+            }
+            char j;
+            int y;
+            stringstream s(m);
+            s>>j>>y;
+            int v;
+            switch(j)
+            {
+                case 'a':
+                case 'A':
+                    v=0;
+                    break;
+                case 'b':
+                case 'B':
+                    v=1;
+                    break;
+                case 'c':
+                case 'C':
+                    v=2;
+                    break;
+                case 'd':
+                case 'D':
+                    v=3;
+                    break;
+                case 'e':
+                case 'E':
+                    v=4;
+                    break;
+                case 'f':
+                case 'F':
+                    v=5;
+                    break;
+                case 'g':
+                case 'G':
+                    v=6;
+                    break;
+                case 'h':
+                case 'H':
+                    v=7;
+                    break;
+            }
+            if(pos=="p ")
+            { 
+                if(z[y-1][v]!="p " && (z[y-1][v]!="R " &&(z[y-1][v]!="N " && (z[y-1][v]!="B " &&(z[y-1][v]!="Q " && z[y-1][v]!="K ")))))
+                {
+                    if(l==j)
+                    {
+                        if(x==2 && y==4)
+                        {  
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else if(y==x+1 && z[y-1][v]=="  ")      {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                            if(y==8)
+                            {
+                                char na;
+                                cout<<"\n\nEnter the piece for replacement(Q,R,N, B):"<<endl;
+                                cin>>na;
+                                switch(na)
+                                {
+                                    case 'Q':
+                   case 'q':
+                       z[y-1][v]="Q ";
+                   case 'R':
+                   case 'r':
+                       z[y-1][v]="R ";
+                   case 'N':
+                   case 'n':
+                       z[y-1][v]="N ";
+                   case 'B':
+                   case 'b':
+                       z[y-1][v]="B ";
+                       
+                       
+                                }
+                                
+                            }
+                        }              }
+                    else if(v==o+1 || v==o-1)
+                    {
+                        if(y==x+1 && z[y-1][v]!="  ")
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        
+                        else 
+                        {
+                            cout<<"\n\n wrong move"<<endl;
+                        }
+                    }
+                    else
+                    {
+                        cout<<"\n\nwrong move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos=="R ")
+            {
+               if(z[y-1][v]!="p " && (z[y-1][v]!="R " &&(z[y-1][v]!="N " && (z[y-1][v]!="B " &&(z[y-1][v]!="Q " && z[y-1][v]!="K ")))))
+                { 
+                int fl=0;
+                if(v==o || x==y)
+                {
+                    if(o==v)
+                    {
+                        if(x<y)
+                        {
+                        for(int i=x;i<y-1;i++)
+                        {
+                            if(z[i][o]!="  ") 
+                            {
+                                fl=1;
+                                break;
+                            }
+                        }
+                        if(fl==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(y<x)
+                    {
+                        int fg=0;
+                        for(int i=y;i<x-1;i++)
+                        {
+                            if(z[i][o]!="  ") 
+                            {
+                                fg=1;
+                                break;
+                            }
+                        }
+                        if(fg==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }
+                    else if(x==y)
+                    {
+                        if(o<v)
+                        {
+                        int ct=0;
+                        for(int i=o+1;i<v;i++)
+                        {
+                            if(z[x][i]!="  ")
+                            {
+                                ct=1;
+                                break;
+                            }
+                        }
+                        if(ct==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(v<o)
+                    {
+                         int cr=0;
+                        for(int i=v+1;i<o;i++)
+                        {
+                            if(z[x][i]!="  ")
+                            {
+                                cr=1;
+                                break;
+                            }
+                        }
+                        if(cr==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }
+                }
+                else 
+                {
+                    cout<<"\n\nWrong move"<<endl;
+                }
+                }
+                else 
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos=="N ")
+            {
+                if(z[y-1][v]!="p " && (z[y-1][v]!="R " &&(z[y-1][v]!="N " && (z[y-1][v]!="B " &&(z[y-1][v]!="Q " && z[y-1][v]!="K ")))))
+                {
+                if(v==o+1 || v==o-1)
+                {
+                    if(y==x+2 || y==x-2)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nwrong move"<<endl;
+                        }
+                }
+                else if(v==o+2 || v==o-2)
+                {
+                    if(y==x+1 || y==x-1)
+                    {
+                        z[y-1][v]=z[x-1][o];
+                        z[x-1][o]="  ";
+                    }
+                    else
+                    {
+                        cout<<"\n\nwrong move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nWrong move"<<endl;
+                }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos=="B ")
+            {
+                if(z[y-1][v]!="p " && (z[y-1][v]!="R " &&(z[y-1][v]!="N " && (z[y-1][v]!="B " &&(z[y-1][v]!="Q " && z[y-1][v]!="K ")))))
+                {
+                    if(o<v)
+                    {
+                        if(x<y)
+                        {
+                            int cm=0;
+                            if(y-x==v-o)
+                            {
+                                int ov=o+1;
+                                for(int i=x;i<y-1;i++)
+                                {
+                                    if(z[i][ov]!="  ")
+                                    {
+                                        cm=1;
+                                        break;
+                                   }     ov++;
+                                     
+                                    }
+                              
+                                if(cm==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y<x)
+                        {
+                             int ct=0;
+                            if(x-y==v-o)
+                            {
+                                int oj=o+1;
+                                for(int i=x-2;i>y-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                                 }       oj++;
+                                     
+                                    
+                                }
+                                if(ct==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                    else if(v<o)
+                    {
+                        if(x<y)
+                        {
+                            int am=0;
+                            if(y-x==o-v)
+                            {
+                                int nt=o-1;
+                                for(int i=x;i<y-1;i++)
+                                {
+                                    if(z[i][nt]!="  ")
+                                    {
+                                        am=1;
+                                        break;
+                                }        nt--;
+                                     
+                                    
+                                }
+                                if(am==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y<x)
+                        {
+                             int ct=0;
+                            if(x-y==o-v)
+                            {
+                                int oj=o-1;
+                                for(int i=x-2;i>y-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                               }         oj--;
+                                     
+                                    }
+                                
+                                if(ct==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos=="Q ")
+            {
+                if(z[y-1][v]!="p " && (z[y-1][v]!="R " &&(z[y-1][v]!="N " && (z[y-1][v]!="B " &&(z[y-1][v]!="Q " && z[y-1][v]!="K ")))))
+                {
+                    if((o<v || v<o) || (o==v || x==y))
+                    {
+                    if(o<v)
+                    {
+                        if(x<y)
+                        {
+                            int cm=0;
+                            if(y-x==v-o)
+                            {
+                                int ov=o+1;
+                                for(int i=x;i<y-1;i++)
+                                {
+                                    if(z[i][ov]!="  ")
+                                    {
+                                        cm=1;
+                                        break;
+                                }        ov++;
+                                     
+                                    
+                                }
+                                if(cm==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y<x)
+                        {
+                             int ct=0;
+                            if(x-y==v-o)
+                            {
+                                int oj=o+1;
+                                for(int i=x-2;i>y-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                               }         oj++;
+                                     
+                                    
+                                }
+                                if(ct==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                    else if(v<o)
+                    {
+                        if(x<y)
+                        {
+                            int am=0;
+                            if(y-x==o-v)
+                            {
+                                int nt=o-1;
+                                for(int i=x;i<y-1;i++)
+                                {
+                                    if(z[i][nt]!="  ")
+                                    {
+                                        am=1;
+                                        break;
+                                   }     nt--;
+                                     
+                                    }
+                                
+                                if(am==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y<x)
+                        {
+                             int ct=0;
+                            if(x-y==o-v)
+                            {
+                                int oj=o-1;
+                                for(int i=x-2;i>y-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                                 }       oj--;
+                                     
+                                    
+                                }
+                                if(ct==0)
+                                {
+                                    z[y-1][v]=z[x-1][o];
+                                    z[x-1][o]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                             
+                else if(v==o || x==y)
+                {
+                    int fl=0;
+                    if(o==v)
+                    {
+                        if(x<y)
+                        {
+                        for(int i=x;i<y-1;i++)
+                        {
+                            if(z[i][o]!="  ") 
+                            {
+                                fl=1;
+                                break;
+                            }
+                        }
+                        if(fl==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(y<x)
+                    {
+                        int fg=0;
+                        for(int i=y;i<x-1;i++)
+                        {
+                            if(z[i][o]!="  ") 
+                            {
+                                fg=1;
+                                break;
+                            }
+                        }
+                        if(fg==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }                  else if(x==y)
+                    {
+                        if(o<v)
+                        {
+                        int ct=0;
+                        for(int i=o+1;i<v;i++)
+                        {
+                            if(z[x][i]!="  ")
+                            {
+                                ct=1;
+                                break;
+                            }
+                        }
+                        if(ct==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(v<o)
+                    {
+                         int cd=0;
+                        for(int i=v+1;i<o;i++)
+                        {
+                            if(z[x][i]!="  ")
+                            {
+                                cd=1;
+                                break;
+                            }
+                        }
+                        if(cd==0)
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }
+                }
+                else 
+                {
+                    cout<<"\n\nWrong move"<<endl;
+                }
+                    }
+                    else
+                    {
+                        cout<<"\n\nInvalid move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos=="K ")
+            {
+                if(z[y-1][v]!="p " && (z[y-1][v]!="R " &&(z[y-1][v]!="N " && (z[y-1][v]!="B " &&(z[y-1][v]!="Q " && z[y-1][v]!="K ")))))
+                {
+        
+                        if(y==x+1 && (v==o+1 || v==o-1))
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]=="  ";
+                        }
+                        else if(y=x-1 && (v==o+1 || v==o-1))
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]=="  ";
+                        }
+                    else if(y==x || v==o)
+                    {
+                        if(y==x && (v==o+1 || v==o-1))
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]=="  ";
+                        }
+                        else if(o==v && (y==x-1 || y==x+1))
+                        {
+                            z[y-1][v]=z[x-1][o];
+                            z[x-1][o]=="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nwrong move"<<endl;
+                        }
+                    }
+                    else 
+                    {
+                        cout<<"\n\nInvalid move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+        }
+        void BMove(string n1,string m1)
+        {
+            char l1;
+            int x1;
+            stringstream ss(n1);
+            ss>>l1>>x1;
+            string pos1;
+            int o1;
+            switch(l1)
+            {
+                case 'a':
+                case 'A':
+                    o1=0;
+                    break;
+                case 'b':
+                case 'B':
+                    o1=1;
+                    break;
+                case 'c':
+                case 'C':
+                    o1=2;
+                    break;
+                case 'd':
+                case 'D':
+                    o1=3;
+                    break;
+                case 'e':
+                case 'E':
+                    o1=4;
+                    break;
+                case 'f':
+                case 'F':
+                    o1=5;
+                    break;
+                case 'g':
+                case 'G':
+                    o1=6;
+                    break;
+                case 'h':
+                case 'H':
+                    o1=7;
+                    break;
+            }
+            switch(l1)
+            {
+                case 'A':
+                case 'a':
+                    pos1=z[x1-1][o1];
+                    break;
+                case 'B':
+                case 'b':
+                    pos1=z[x1-1][o1];
+                    break;
+                case 'C':
+                case 'c':
+                    pos1=z[x1-1][o1];
+                    break;
+                case 'D':
+                case 'd':
+                    pos1=z[x1-1][o1];
+                    break;
+                case 'E':
+                case 'e':
+                    pos1=z[x1-1][o1];
+                    break;
+                case 'F':
+                case 'f':
+                    pos1=z[x1-1][o1];
+                    break;
+                case 'G':
+                case 'g':
+                    pos1=z[x1-1][o1];
+                    break;
+                case 'H':
+                case 'h':
+                    pos1=z[x1-1][o1];
+                    break;
+            }
+            char j1;
+            int y1;
+            stringstream s(m1);
+            s>>j1>>y1;
+            int v1;
+            switch(j1)
+            {
+                case 'a':
+                case 'A':
+                    v1=0;
+                    break;
+                case 'b':
+                case 'B':
+                    v1=1;
+                    break;
+                case 'c':
+                case 'C':
+                    v1=2;
+                    break;
+                case 'd':
+                case 'D':
+                    v1=3;
+                    break;
+                case 'e':
+                case 'E':
+                    v1=4;
+                    break;
+                case 'f':
+                case 'F':
+                    v1=5;
+                    break;
+                case 'g':
+                case 'G':
+                    v1=6;
+                    break;
+                case 'h':
+                case 'H':
+                    v1=7;
+                    break;
+            }
+            if(pos1=="p*")
+            { 
+                if(z[y1-1][v1]!="p*" && (z[y1-1][v1]!="R*" &&(z[y1-1][v1]!="N*" && (z[y1-1][v1]!="B*" &&(z[y1-1][v1]!="Q*" && z[y1-1][v1]!="K*")))))
+                {
+                    if(l1==j1)
+                    {
+                        if(x1==7 && y1==5)
+                        {  
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else if(y1==x1-1 && z[y1-1][v1]=="  ")      {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                            if(y1==1)
+                            {
+                                char na1;
+                                cout<<"\n\nEnter the piece for replacement(Q,R,N, B):"<<endl;
+                                cin>>na1;
+                                switch(na1)
+                                {
+                                    case 'Q':
+                   case 'q':
+                       z[y1-1][v1]="Q*";
+                   case 'R':
+                   case 'r':
+                       z[y1-1][v1]="R*";
+                   case 'N':
+                   case 'n':
+                       z[y1-1][v1]="N*";
+                   case 'B':
+                   case 'b':
+                       z[y1-1][v1]="B*";
+                       
+                       
+                                }
+                                
+                            }
+                        }              }
+                    else if(v1==o1+1 || v1==o1-1)
+                    {
+                        if(y1==x1-1 && z[y1-1][v1]!="  ")
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        
+                        else 
+                        {
+                            cout<<"\n\n wrong move"<<endl;
+                        }
+                    }
+                    else
+                    {
+                        cout<<"\n\nwrong move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos1=="R*")
+            {
+               if(z[y1-1][v1]!="p*" && (z[y1-1][v1]!="R*" &&(z[y1-1][v1]!="N*" && (z[y1-1][v1]!="B*" &&(z[y1-1][v1]!="Q*" && z[y1-1][v1]!="K*")))))
+                { 
+                int f=0;
+                if(v1==o1 || x1==y1)
+                {
+                    if(o1==v1)
+                    { 
+                        if(y1>x1) 
+                        {
+                        for(int i=x1;i<y1-1;i++)
+                        {
+                            if(z[i][o1]!="  ") 
+                            {
+                                f=1;
+                                break;
+                            }
+                        }
+                        if(f==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(x1>y1)
+                    {
+                        int ft=0;
+                        for(int i=y1;i<x1-1;i++)
+                        {
+                            if(z[i][o1]!="  ") 
+                            {
+                                ft=1;
+                                break;
+                            }
+                        }
+                        if(ft==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }
+                    else if(x1==y1)
+                    {
+                        if(o1<v1)
+                        {
+                        int cc=0;
+                        for(int i=o1+1;i<v1;i++)
+                        {
+                            if(z[x1][i]!="  ")
+                            {
+                                cc=1;
+                                break;
+                            }
+                        }
+                        if(cc==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(o1>v1)
+                    {
+                         int cn=0;
+                        for(int i=v1+1;i<o1;i++)
+                        {
+                            if(z[x1][i]!="  ")
+                            {
+                                cn=1;
+                                break;
+                            }
+                        }
+                        if(cn==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }
+                }
+                else 
+                {
+                    cout<<"\n\nWrong move"<<endl;
+                }
+                }
+                else 
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos1=="N*")
+            {
+                if(z[y1-1][v1]!="p*" && (z[y1-1][v1]!="R*" &&(z[y1-1][v1]!="N*" && (z[y1-1][v1]!="B*" &&(z[y1-1][v1]!="Q*" && z[y1-1][v1]!="K*")))))
+                {
+                if(v1==o1+1 || v1==o1-1)
+                {
+                    if(y1==x1+2 || y1==x1-2)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nwrong move"<<endl;
+                        }
+                }
+                else if(v1==o1+2 || v1==o1-2)
+                {
+                    if(y1==x1+1 || y1==x1-1)
+                    {
+                        z[y1-1][v1]=z[x1-1][o1];
+                        z[x1-1][o1]="  ";
+                    }
+                    else
+                    {
+                        cout<<"\n\nwrong move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nWrong move"<<endl;
+                }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos1=="B*")
+            {
+                if(z[y1-1][v1]!="p*" && (z[y1-1][v1]!="R*" &&(z[y1-1][v1]!="N*" && (z[y1-1][v1]!="B*" &&(z[y1-1][v1]!="Q*" && z[y1-1][v1]!="K*")))))
+                {
+                    if(o1<v1)
+                    {
+                        if(x1<y1)
+                        {
+                            int cm=0;
+                            if(y1-x1==v1-o1)
+                            {
+                                int ov=o1+1;
+                                for(int i=x1;i<y1-1;i++)
+                                {
+                                    if(z[i][ov]!="  ")
+                                    {
+                                        cm=1;
+                                        break;
+                               }         ov++;
+                                     
+                                    }
+                                
+                                if(cm==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y1<x1)
+                        {
+                             int ct=0;
+                            if(x1-y1==v1-o1)
+                            {
+                                int oj=o1+1;
+                                for(int i=x1-2;i>y1-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                                  }      oj++;
+                                     
+                                    }
+                                
+                                if(ct==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                    else if(v1<o1)
+                    {
+                        if(x1<y1)
+                        {
+                            int am=0;
+                            if(y1-x1==o1-v1)
+                            {
+                                int nt=o1-1;
+                                for(int i=x1;i<y1-1;i++)
+                                {
+                                    if(z[i][nt]!="  ")
+                                    {
+                                        am=1;
+                                        break;
+                                 }       nt--;
+                                     
+                                    }
+                                
+                                if(am==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y1<x1)
+                        {
+                             int ct=0;
+                            if(x1-y1==o1-v1)
+                            {
+                                int oj=o1-1;
+                                for(int i=x1-2;i>y1-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                                }        oj--;
+                                     
+                                    }
+                                
+                                if(ct==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos1=="Q*")
+            {
+                if(z[y1-1][v1]!="p*" && (z[y1-1][v1]!="R*" &&(z[y1-1][v1]!="N*" && (z[y1-1][v1]!="B*" &&(z[y1-1][v1]!="Q*" && z[y1-1][v1]!="K*")))))
+                {
+                    if((o1<v1 || v1<o1) || (o1==v1 || x1==y1))
+                    {
+                    if(o1<v1)
+                    {
+                        if(x1<y1)
+                        {
+                            int cm=0;
+                            if(y1-x1==v1-o1)
+                            {
+                                int ov=o1+1;
+                                for(int i=x1;i<y1-1;i++)
+                                {
+                                    if(z[i][ov]!="  ")
+                                    {
+                                        cm=1;
+                                        break;
+                                   }     ov++;
+                                     
+                                    
+                                }
+                                if(cm==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y1<x1)
+                        {
+                             int ct=0;
+                            if(x1-y1==v1-o1)
+                            {
+                                int oj=o1+1;
+                                for(int i=x1-2;i>y1-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                                }        oj++;
+                                     
+                                    }
+                                
+                                if(ct==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                    else if(v1<o1)
+                    {
+                        if(x1<y1)
+                        {
+                            int am=0;
+                            if(y1-x1==o1-v1)
+                            {
+                                int nt=o1-1;
+                                for(int i=x1;i<y1-1;i++)
+                                {
+                                    if(z[i][nt]!="  ")
+                                    {
+                                        am=1;
+                                        break;
+                                  }      nt--;
+                                     
+                                    }
+                                
+                                if(am==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                        else if(y1<x1)
+                        {
+                             int ct=0;
+                            if(x1-y1==o1-v1)
+                            {
+                                int oj=o1-1;
+                                for(int i=x1-2;i>y1-1;i--)
+                                {
+                                    if(z[i][oj]!="  ")
+                                    {
+                                        ct=1;
+                                        break;
+                                }        oj--;
+                                     
+                                    }
+                                
+                                if(ct==0)
+                                {
+                                    z[y1-1][v1]=z[x1-1][o1];
+                                    z[x1-1][o1]="  ";
+                                }
+                                else
+                                {
+                                    cout<<"\n\nInvalid move"<<endl;
+                                }
+                            }
+                        }
+                    }
+                             
+                else if(v1==o1 || x1==y1)
+                {
+                    if(o1==v1)
+                    { 
+                        int f=0;
+                        if(y1>x1) 
+                        {
+                        for(int i=x1;i<y1-1;i++)
+                        {
+                            if(z[i][o1]!="  ") 
+                            {
+                                f=1;
+                                break;
+                            }
+                        }
+                        if(f==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(x1>y1)
+                    {
+                        int ft=0;
+                        for(int i=y1;i<x1-1;i++)
+                        {
+                            if(z[i][o1]!="  ") 
+                            {
+                                ft=1;
+                                break;
+                            }
+                        }
+                        if(ft==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }
+                    else if(x1==y1)
+                    {
+                        if(o1<v1)
+                        {
+                        int cc=0;
+                        for(int i=o1+1;i<v1;i++)
+                        {
+                            if(z[x1][i]!="  ")
+                            {
+                                cc=1;
+                                break;
+                            }
+                        }
+                        if(cc==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    else if(o1>v1)
+                    {
+                         int cn=0;
+                        for(int i=v1+1;i<o1;i++)
+                        {
+                            if(z[x1][i]!="  ")
+                            {
+                                cn=1;
+                                break;
+                            }
+                        }
+                        if(cn==0)
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]="  ";
+                        }
+                        else
+                        {
+                            cout<<"\n\nWrong move"<<endl;
+                        }
+                    }
+                    }
+                }
+                else 
+                {
+                    cout<<"\n\nWrong move"<<endl;
+                }
+                    }
+                    else
+                    {
+                        cout<<"\n\nInvalid move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+            else if(pos1=="K*")
+            {
+                if(z[y1-1][v1]!="p*" && (z[y1-1][v1]!="R*" &&(z[y1-1][v1]!="N*" && (z[y1-1][v1]!="B*" &&(z[y1-1][v1]!="Q*" && z[y1-1][v1]!="K*")))))
+                {
+                
+                        if(y1==x1+1 && (v1==o1+1 || v1==o1-1))
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]=="  ";
+                        }
+                        else if(y1=x1-1 && (v1==o1+1 || v1==o1-1))
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]=="  ";
+                        }
+                    else if(y1==x1 || v1==o1)
+                    {
+                        if(y1==x1 && (v1==o1+1 || v1==o1-1))
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]=="  ";
+                        }
+                        else if(o1==v1 && (y1==x1-1 || y1==x1+1))
+                        {
+                            z[y1-1][v1]=z[x1-1][o1];
+                            z[x1-1][o1]=="  ";
+                        }
+                        else 
+                        {
+                            cout<<"\n\nwrong move"<<endl;
+                        }
+                    }
+                    else 
+                    {
+                        cout<<"\n\nInvalid move"<<endl;
+                    }
+                }
+                else
+                {
+                    cout<<"\n\nInvalid move"<<endl;
+                }
+            }
+        }
+        void check()
+        {
+        	int ki,kj,flag=1,fla=1;
+        	for(int i=0;i<8;i++)
+				{
+					for(int j=0;j<8;j++)
+					{
+						if(z[i][j]=="K ")
+							{
+									ki=i;
+									kj=j;
+									break;
+							}
+						
+					}
+				}
+			if((z[ki++][kj+=2]=="N*" || z[ki+=2][kj++]=="N*") || (z[ki--][kj-=2]=="N*" || z[ki-=2][kj--]=="N*") )
+				cout<<"\nIts a check, please protect your king from knight\n";
+		    else if(z[ki++][kj++]=="p*" || z[ki++][kj--]=="p*" )
+				cout<<"\nIts a check, please protect your king from pawn\n";
+					int ri;
+			for(int i=0;i<8;i++)
+			{
+			
+				if(z[i][kj]=="R*")
+					{
+						ri=i;
+					}
+			}
+			if(ri>ki)
+			{
+				for(int i=ki+1;ki<ri;ki++)
+				{
+					if(z[i][kj]!="  ")
+					{
+						flag=0;
+						break;
+					}
+				}
+			}
+			if(ki>ri)
+			{
+				for(int i=ri+1;ri<ki;ri++)
+				{
+					if(z[i][kj]!="  ")
+					{
+						flag=0;
+						break;
+					}
+				}
+			}
+			if(flag==1)
+				cout<<"\nIts a check, please protect your king from rook\n";
+			for(int i=0;i<8;i++)
+			{
+				int ri;
+				if(z[ki][i]=="R ")
+					{
+						ri=i;
+					}
+			}
+			if(ri>kj)
+			{
+				for(int i=kj+1;kj<ri;i++)
+				{
+					if(z[ki][i]!="  ")
+					{
+						flag=0;
+						break;
+					}
+				}
+			}
+			if(kj>ri)
+			{
+				for(int i=ri+1;ri<kj;i++)
+				{
+					if(z[ki][i]!="  ")
+					{
+						flag=0;
+						break;
+					}
+				}
+			}
+			if(flag==1)
+				cout<<"\nIts a check, please protect your king from rook\n";
+									
+		}
+		
+
+		
+};
+int main() 
+{
+    cout<<"\n Instructions and Name of the pieces:\n\n1.White piece :\n\t*King-K\n\t*Queen-Q\n\t*Bishop-B\n\t*Knight-N\n\t*Rook-R\n\t*Pawn=p\n\n2.Black piece :\n\t*King-K*\n\t*Queen-Q*\n\t*Bishop-B*\n\t*Knight-N*\n\t*Rook-R*\n\t*Pawn=p*\n\n3.Don't Move pieces in the wrong way.\n\n4.If you move wrongly your turn will be pass to the opponent. \n"<<endl;
+    Black w;
+    White e;
+    w.display();
+    cout<<"\n\nPlayer 1: White\nPlayer 2: Black"<<endl;
+    while(1)
+    {
+        string p1,m1,p2,m2;
+        cout<<"\nPlayer 1: Enter the position and move:";
+        getline(cin,p1);
+        getline(cin,m1);
+        w.WMove(p1,m1);
+        w.display();
+        cout<<"\n\nPlayer 2: Enter the position and move:";
+        getline(cin,p2);
+        getline(cin,m2);
+        w.BMove(p2,m2);
+        w.check();
+        w.display();
+    }
+}
